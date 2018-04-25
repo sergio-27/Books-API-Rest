@@ -1,0 +1,1 @@
+el servlet en si esta hecho para ser un api rest. por lo que hay que declararlo en el archivo web.xml.
