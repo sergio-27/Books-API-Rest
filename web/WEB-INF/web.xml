@@ -20,6 +20,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <!-- Aqui relacionamos el servlet con el api rest, to do lo que no tenga -->
     <servlet-mapping>
         <servlet-name>Jersey</servlet-name>
         <url-pattern>/rest/*</url-pattern>

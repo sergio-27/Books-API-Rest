@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Altas</title>
+    <style>
+        form{
+            width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+
+            const tit = document.getElementById("titulo")
+            const desc = document.getElementById("desc")
+            const precio = document.getElementById("precio")
+
+            //creamos una variable en la cual le diremos los datos que queremos enviar
+            //enviamos todos los parametros de esta manera para que no tengamos que recargar la pagina
+            const param = `titulo=${tit.value}&desc=${desc.value}&precio=${precio.value}`
+
+
+            const URL = "rest/gestion"
+            const ajax = new XMLHttpRequest()
+
+            function gestionarEnvio() {
+                ajax.open("POST", URL, true)
+                //funcion callback
+                ajax.onreadystatechange = gestionarRespuesta
+                ajax.send(param)
+            }
+
+            function gestionarRespuesta(){
+                if(ajax.readyState === 4){
+                    if(ajax.status === 200){
+                        const mensaje = ajax.responseText;
+                        document.getElementById("estado").innerText = mensaje
+                        limpiarCampos()
+                    }
+                }
+            }
+
+            function limpiarCampos(){
+                tit.value = ""
+                desc.value = ""
+                precio.value = ""
+                tit.focus()
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+<h1>Alta de libros</h1>
+
+<form action="#" method="post" onsubmit="return gestionarEnvio()">
+    <fieldset>
+        <legend>Datos del libro</legend>
+
+        <label for="titulo">Ttiutlo</label>
+        <input type="text" id="titulo" size="50" name="titulo"/>
+
+        <label for="desc">Descripcion</label>
+        <textarea id="desc" rows="5" cols="50" name="desc" ></textarea>
+
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" size="8" name="precio"/>
+
+        <input type="submit" role="button" value="Enviar" />
+    </fieldset>
+    <div id="estado"></div>
+</form>
+
+</body>
+</html>
